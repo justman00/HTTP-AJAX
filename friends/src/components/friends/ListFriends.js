@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Friend from "./Friend";
 
-const ListFriends = () => {
+const ListFriends = props => {
   const [friends, setFriends] = useState([]);
   useEffect(() => {
     axios
@@ -11,12 +11,16 @@ const ListFriends = () => {
       .catch(err => console.log(err));
   }, []);
 
-  console.log(friends);
   return (
     <>
       <h2>ListFriends</h2>
       {friends.map(friend => (
-        <Friend key={friend.id} {...friend} />
+        <Friend
+          key={friend.id}
+          setFriends={setFriends}
+          friends={friends}
+          {...friend}
+        />
       ))}
     </>
   );
