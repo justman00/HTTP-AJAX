@@ -1,13 +1,15 @@
 import React from "react";
 import ListFriends from "./friends/ListFriends";
 import { Route } from "react-router-dom";
-import AddFriendForm from "./friends/AddFriendForm";
+import AddFriend from "./friends/AddFriend";
+import UpdateFriend from "./friends/UpdateFriend";
 
 const App = () => {
   return (
     <>
       <Route exact path="/" component={ListFriends} />
-      <Route path="/create" component={AddFriendForm} />
+      <Route path="/create" component={AddFriend} />
+      <Route path="/edit/:id" component={UpdateFriend} />
     </>
   );
 };

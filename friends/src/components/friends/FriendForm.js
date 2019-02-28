@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 
-export default function AddFriendForm(props) {
-  const [values, setValues] = useState({ name: "", age: "", email: "" });
+export default function FriendForm({
+  onSubmit,
+  initialValues = { name: "", age: "", email: "" },
+  title
+}) {
+  const [values, setValues] = useState({});
+
+  useEffect(() => {
+    setValues({ ...initialValues });
+  }, [initialValues.name]);
 
   const onChange = e => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = e => {
-    e.preventDefault();
-    axios
-      .post("http://localhost:5000/friends", values)
-      .then(() => props.history.push("/"));
-  };
-
   return (
-    <form onSubmit={onSubmit}>
-      <h1>hi</h1>
+    <form onSubmit={e => onSubmit(e, values)}>
+      <h1>{title}</h1>
       <input type="text" name="name" value={values.name} onChange={onChange} />
       <input type="text" name="age" value={values.age} onChange={onChange} />
       <input
